@@ -8,7 +8,8 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // DONE: Problem 1 Start
+        // Problem 1 Start
+        
         // create an empty array varible to store the returned values
         var multiples = new double[length];
         // create a loop that runs as many times as the length parameter
@@ -22,6 +23,8 @@ public static class Arrays
         }
         // return multiples array
         return multiples;
+
+        // Problem 1 End
     }
 
     /// <summary>
@@ -33,9 +36,15 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Problem 2 Start
+ 
+        // get the elemets to be rotated from the data list and store tem in a temp list
+        var temp = data.GetRange(data.Count - amount, amount);
+        // remove the elements to be rotated from the data list
+        data.RemoveRange(data.Count - amount, amount);
+        // add the temp list to the beginning of the data list
+        data.InsertRange(0, temp);
+
+        // Problem 2 End
     }
 }
