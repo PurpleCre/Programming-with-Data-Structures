@@ -9,16 +9,16 @@ public static class Arrays
     public static double[] MultiplesOf(double number, int length)
     {
         // Problem 1 Start
-        
+
         // create an empty array varible to store the returned values
         var multiples = new double[length];
         // create a loop that runs as many times as the length parameter
         // we instantiate i as 1 to make it easier when multiplying
         for (int i = 1; i <= length; i++)
         {
-            // multiply the given number with the iterator
+            // multiply the given number with the iterator and store result in multiple variable
             var multiple = number * i;
-            // add multiple to multiples array using index method, here we add on since index is 0 based
+            // add multiple to multiples array using index method, here we subtract 1 from the iterator since index is 0 based
             multiples[i-1] = multiple;
         }
         // return multiples array
@@ -38,7 +38,7 @@ public static class Arrays
     {
         // Problem 2 Start
  
-        // get the elemets to be rotated from the data list and store tem in a temp list
+        // get the elements to be rotated from the data list and store them in a temp list
         var temp = data.GetRange(data.Count - amount, amount);
         // remove the elements to be rotated from the data list
         data.RemoveRange(data.Count - amount, amount);
