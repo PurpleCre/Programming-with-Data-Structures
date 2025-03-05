@@ -8,12 +8,20 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
-
-        return []; // replace this return statement with your own
+        // DONE: Problem 1 Start
+        // create an empty array varible to store the returned values
+        var multiples = new double[length];
+        // create a loop that runs as many times as the length parameter
+        // we instantiate i as 1 to make it easier when multiplying
+        for (int i = 1; i <= length; i++)
+        {
+            // multiply the given number with the iterator
+            var multiple = number * i;
+            // add multiple to multiples array using index method, here we add on since index is 0 based
+            multiples[i-1] = multiple;
+        }
+        // return multiples array
+        return multiples;
     }
 
     /// <summary>
