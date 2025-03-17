@@ -11,20 +11,56 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: add and diplay a customer
+        // Expected Result: the customer that was added should be displayed
         Console.WriteLine("Test 1");
 
+        var cs = new CustomerService(4);
+        cs.AddNewCustomer();
+        cs.ServeCustomer();
+        
         // Defect(s) Found: 
+        //  1. out of range error in ServeCustomers()... customer must be stored before being removed from queue
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Add a customer to a full queue
+        // Expected Result: An error should be displayed
         Console.WriteLine("Test 2");
 
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+
         // Defect(s) Found: 
+        //  1. Error encountered after adding 2 more customers than the queue can support... changed evaluater to the inclusive ">=" operator
+
+        Console.WriteLine("=================");
+
+        // Test 3
+        // Scenario: Serve customer with an empty queue
+        // Expected Result: An error should be displayed
+        Console.WriteLine("Test 3");
+
+        cs = new CustomerService(4);
+        cs.ServeCustomer();
+
+        // Defect(s) Found:
+        //  1. need to add a check for queue length and an error report
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: create customer service with a capacity of zero or less
+        // Expected Result: capacity defaults to 10
+        Console.WriteLine("Test 4");
+        
+        cs = new CustomerService(0);
+        Console.WriteLine(cs._maxSize);
+        // Defect(s) Found: none
 
         Console.WriteLine("=================");
 
@@ -67,7 +103,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +124,16 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        // Need to check if there are customers in our queue
+        if (_queue.Count <= 0) // Test 3 Defect - Need to check queue length
+        {
+            Console.WriteLine("No Customers in the queue");
+        }
+        else {
+            var customer = _queue[0]; // Test 1 defect: Need to read and save the customer before it is deleted from the queue
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>

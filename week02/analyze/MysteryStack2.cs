@@ -5,6 +5,7 @@
 
     public static float Run(string text) {
         var stack = new Stack<float>();
+     
         foreach (var item in text.Split(' ')) {
             if (item == "+" || item == "-" || item == "*" || item == "/") {
                 if (stack.Count < 2)
