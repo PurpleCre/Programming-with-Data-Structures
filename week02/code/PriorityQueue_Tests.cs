@@ -39,8 +39,15 @@ public class PriorityQueueTests
         var priorityQueue = new PriorityQueue();        
         // Add priority items
         priorityQueue.Enqueue("Desmond", 2);
-        priorityQueue.Enqueue("Ezio", 3);
+        priorityQueue.Enqueue("Edward", 3);
+        priorityQueue.Enqueue("Anno", 3);
         priorityQueue.Enqueue("Connor", 1);
+        priorityQueue.Enqueue("Ezio", 3);
+        priorityQueue.Enqueue("Bayek", 2);
+
+        // pop out Edward and Anno
+        priorityQueue.Dequeue();
+        priorityQueue.Dequeue();
 
         Assert.AreEqual(expectedOutcome, priorityQueue.Dequeue());
     }
