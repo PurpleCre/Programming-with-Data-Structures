@@ -33,6 +33,22 @@ public class LinkedList : IEnumerable<int>
     public void InsertTail(int value)
     {
         // TODO Problem 1
+
+        // Create new node
+        Node newNode = new(value);
+        // If the list is empty, then point both head and tail to the new node.
+        if (_head is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        // If the list is not empty, then only tail will be affected.
+        else
+        {
+            newNode.Prev = _tail; // connect neNode to _tail
+            _tail.Next = newNode; // connect _tail to newNode
+            _tail = newNode; // set newNode as _tail
+        }
     }
 
 
@@ -65,6 +81,22 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+
+        // If the list has only one item in it, then set head and tail 
+        // to null resulting in an empty list.  This condition will also
+        // cover an empty list.  Its okay to set to null again.
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+        // If the list has more than one item in it, then only the tail
+        // will be affected.
+        else if (_tail is not null)
+        {
+            _tail.Prev!.Next = null; // Disconnect the second from last node from the last node
+            _tail = _tail.Prev; // Update the tail to point to the second from last node
+        }
     }
 
     /// <summary>
@@ -109,6 +141,39 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+
+        // Search for the node that matches 'value' by starting at the 
+        // head of the list.
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                // If the location of 'value' is at the end of the list,
+                // then we can call RemoveTail
+                if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                // If the location of 'value' is at the beginning of the list,
+                // then we can call RemoveHead
+                else if (curr == _head)
+                {
+                    RemoveHead();
+                }
+                // For any other location of 'value', need to remove
+                // cuur node links and recconect them to other nodes.
+                else
+                {
+                    curr.Next!.Prev = curr.Prev; // Disconnect Node after Value
+                    curr.Prev!.Next = curr.Next; // Disconnect node before Value
+                }
+
+                return; // We can exit the function after we remove node
+            }
+
+            curr = curr.Next; // Go to the next node to search for 'value'
+        }
     }
 
     /// <summary>
@@ -117,6 +182,21 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+
+        // Search for the node that matches 'oldValue' by starting at the 
+        // head of the list.
+        Node? curr = _head;
+        // loop through the entire list
+        while (curr is not null)
+        {
+            // check if current data is equal to oldValue
+            if (curr.Data == oldValue)
+            {   
+                curr.Data = newValue; // set current node value to newValue
+            }
+
+            curr = curr.Next; // Go to the next node to search for 'oldValue'
+        }
     }
 
     /// <summary>
@@ -147,7 +227,13 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+       
+        var curr = _tail; // Start at the end since this is a reverse iteration.
+        while (curr is not null)
+        {
+            yield return curr.Data; // Provide (yield) each item to the user
+            curr = curr.Prev; // Go backward in the linked list
+        }
     }
 
     public override string ToString()
