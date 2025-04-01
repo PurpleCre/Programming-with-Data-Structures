@@ -62,9 +62,16 @@ public class Node
 
     public int GetHeight()
     {
-        // TODO Start Problem 4
-        if (Left is null)
-            return 0;
-        return Left.GetHeight();                
+        // Problem 4
+        // Base case: if the node is null, return -1 (height of an empty tree)
+        if (this == null)
+            return -1;
+
+        // Recursively calculate the height of the left and right subtrees
+        int leftHeight = Left?.GetHeight() ?? 0; // Use null-conditional operator to handle null case 
+        int rightHeight = Right?.GetHeight() ?? 0; // Use null-conditional operator to handle null case
+
+        // Return the maximum height of the two subtrees plus 1 for the current node
+        return Math.Max(leftHeight, rightHeight) + 1;             
     }
 }
